@@ -1,0 +1,3 @@
+model: 'xlm-roberta'
+pretrained-model: 'xlm-roberta-base'
+num_labels: 3
