@@ -12,9 +12,9 @@ from pathlib import Path
 import hydra
 import pytorch_lightning as pl
 import torch
-#import wandb
+import wandb
 from dotenv import find_dotenv, load_dotenv
-#from google.cloud import secretmanager
+from google.cloud import secretmanager
 from omegaconf import DictConfig
 from pytorch_lightning import Trainer
 import sys
@@ -28,15 +28,15 @@ from src.models.model import MegaCoolTransformer
 def main(config: DictConfig):
     logger = logging.getLogger(__name__)
     logger.info("Start Training...")
-    #client = secretmanager.SecretManagerServiceClient()
-    #PROJECT_ID = "dtu-mlops-project"
+    client = secretmanager.SecretManagerServiceClient()
+    PROJECT_ID = "ml-ops-374216"
 
-    #secret_id = "WANDB"
-    #resource_name = f"projects/{PROJECT_ID}/secrets/{secret_id}/versions/latest"
-    #response = client.access_secret_version(name=resource_name)
-    #api_key = response.payload.data.decode("UTF-8")
-    #os.environ["WANDB_API_KEY"] = api_key
-    #wandb.init(project="NLP-BERT", entity="dtu-mlops", config=config)
+    secret_id = "WANDB"
+    resource_name = f"projects/{PROJECT_ID}/secrets/{secret_id}/versions/1"
+    response = client.access_secret_version(name=resource_name)
+    api_key = response.payload.data.decode("UTF-8")
+    os.environ["WANDB_API_KEY"] = api_key
+    wandb.init(project="MLOps_Contraddiction", entity="kennethpaulsen", config=config)
 
     gpus = 0
     if torch.cuda.is_available():
@@ -55,8 +55,8 @@ def main(config: DictConfig):
 
     trainer = Trainer(
         max_epochs=config.train.epochs,
-        #gpus=gpus,
-        #logger=pl.loggers.WandbLogger(project="mlops-mnist", config=config),
+        gpus=gpus,
+        logger=pl.loggers.WandbLogger(project="MLOps_Contraddiction", config=config),
         val_check_interval=1.0,
         check_val_every_n_epoch=1,
         gradient_clip_val=1.0,
