@@ -1,0 +1,6 @@
+steps:
+   - name: 'gcr.io/cloud-builders/docker'
+     args: ['build', '-f', 'trainer_cloud.dockerfile', '-t',  'gcr.io/ml-ops-374216/trainer:latest', '.']
+   - name: 'gcr.io/cloud-builders/docker'
+     args: ['push', 'gcr.io/ml-ops-374216/trainer:latest']
+timeout: 3600s
