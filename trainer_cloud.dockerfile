@@ -21,7 +21,6 @@ RUN python3.9 -m pip install -r /tmp/requirements.txt --no-cache-dir
 COPY src/ src/
 COPY .git/ .git/
 COPY .dvc/config .dvc/config
-COPY .dvc/plots .dvc/plots
 COPY data.dvc data.dvc
 COPY outputs.dvc outputs.dvc
 COPY config/ config/
