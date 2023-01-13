@@ -1,4 +1,6 @@
 [core]
-    remote = storage
+    remote = remote_storage
 ['remote "storage"']
     url = gdrive://1rZJLoz1Wvb2nIQGwo1wufM6Yzv4YLJwH
+['remote "remote_storage"']
+    url = gs://mlops_contraddiction
