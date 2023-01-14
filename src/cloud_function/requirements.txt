@@ -1,4 +1,5 @@
 protobuf
+sentencepiece
 torch
 transformers
 google-cloud-storage
