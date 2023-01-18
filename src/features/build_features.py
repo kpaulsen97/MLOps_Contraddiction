@@ -99,15 +99,15 @@ def main(cfg: DictConfig) -> None:
 
    # %% Save to file
     data_path = os.path.join(hydra.utils.get_original_cwd(), c.path, "processed")
-    torch.save(train_inputs[:10], os.path.join(data_path, "train_inputs.pkl"))
-    torch.save(train_labels[:10], os.path.join(data_path, "train_labels.pkl"))
-    torch.save(validation_inputs[:10], os.path.join(data_path, "validation_inputs.pkl"))
-    torch.save(validation_labels[:10], os.path.join(data_path, "validation_labels.pkl"))
-    torch.save(train_masks[:10], os.path.join(data_path, "train_masks.pkl"))
-    torch.save(validation_masks[:10], os.path.join(data_path, "validation_masks.pkl"))
-    torch.save(eval_inputs[:10], os.path.join(data_path, "eval_inputs.pkl"))
-    torch.save(eval_labels[:10], os.path.join(data_path, "eval_labels.pkl"))
-    torch.save(eval_masks[:10], os.path.join(data_path, "eval_masks.pkl"))
+    torch.save(train_inputs, os.path.join(data_path, "train_inputs.pkl"))
+    torch.save(train_labels, os.path.join(data_path, "train_labels.pkl"))
+    torch.save(validation_inputs, os.path.join(data_path, "validation_inputs.pkl"))
+    torch.save(validation_labels, os.path.join(data_path, "validation_labels.pkl"))
+    torch.save(train_masks, os.path.join(data_path, "train_masks.pkl"))
+    torch.save(validation_masks, os.path.join(data_path, "validation_masks.pkl"))
+    torch.save(eval_inputs, os.path.join(data_path, "eval_inputs.pkl"))
+    torch.save(eval_labels, os.path.join(data_path, "eval_labels.pkl"))
+    torch.save(eval_masks, os.path.join(data_path, "eval_masks.pkl"))
     logger.info("Finished! Output saved to '{}'".format(data_path))
 
 
