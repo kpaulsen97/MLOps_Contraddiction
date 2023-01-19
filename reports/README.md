@@ -390,7 +390,8 @@ Compute engine is a very powerful service of GCP. It can be used to create and r
 
 We managed to deploy our model on the cloud. 
 Firstly, in the Cloud storage page, we created one bucket to contain the "deployable_model.py" and since we initially configured DVC on Google Drive we had to change the storage from it to the Cloud Storage. Afterwards, in the Cloud functions page, we created a function that takes as input two sentences and outputs the prediction that could be that either the two sentences entails each other, or are unrelated or contradict each other.
-To invoke the deployed service a user would call curl…..???
+To invoke the deployed service a user would call 
+curl -m 70 -X POST https://us-central1-ml-ops-374216.cloudfunctions.net/function_cloud -d '{"premise":"X","hypothesis":"Y"}', with X and Y as the two sentences we want to understand the relation.
 
 ### Question 23
 
@@ -443,6 +444,14 @@ Since we didn't utilize the VM for our project, we paid a very low amount of mon
 > Answer:
 
 ![my_image](figures/overview.png)
+The process starts with our local machine, where we have the data pipeline which extract the data from the kaggle api and it proccess it to be included in the desired dataset. 
+From there there is the train_model.py that takes the data and transformer and trains it to improve accuracy of the model. 
+The model is trained through PyTorch Lightning, which reduces the amount of code to be written and makes therefore our codes more concise. 
+The logs of the training are registered through Hydra and Wandb. Hydra outputs the general logs locally, while wandb uploads the loss and accuracies of the model during the training. 
+The whole local code structure is uploaded on github, except for the data and trained model which are stored on GCP, pushed and pulled thanks to dvc. 
+Whenever we push on the repository, tests on the model and data are triggered on github and it starts to check if they pass. Furthermore, GCP triggers the build of a docker image which trains the model and will be stored on GCP.
+On GCP we have deployed a function which takes as input two sentences and checks their relation. Furthermore, we added a monitor to this function which signals us via email if the logs exceeds 10 in number in 5 minutes, as we have witnessed this is the threshold for when it gives issues.
+On the user end, he can clone our code on github, pull our data through dvc on GCP, query the function with curl, and pull the docker image which trains the model. 
 
 ### Question 26
 
@@ -456,7 +465,7 @@ Since we didn't utilize the VM for our project, we paid a very low amount of mon
 >
 > Answer:
 
---- question 26 fill here ---
+
 
 ### Question 27
 
@@ -473,4 +482,6 @@ Since we didn't utilize the VM for our project, we paid a very low amount of mon
 >
 > Answer:
 
---- question 27 fill here ---
+s213291 was in charge of creating the data pipeline, from kaggle to the dataset class, and hydra config files, creation of the function on GCP and docker container triggered on the github push. 
+s213290 was in charge of creating the training and test python files, the tests, workflow on github, wandb and local docker images. 
+But overall we helped each other on every topic so that we could get a better understanding of everything.
