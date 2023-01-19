@@ -42,6 +42,62 @@ short, too long, have you included an image when asked to.
 For both functions to work it is important that you do not rename anything. The script have two dependencies that can
 be installed with `pip install click markdown`.
 
+## Overall project checklist
+
+The checklist is *exhaustic* which means that it includes everything that you could possible do on the project in
+relation the curricilum in this course. Therefore, we do not expect at all that you have checked of all boxes at the
+end of the project.
+
+### Week 1
+
+* [x] Create a git repository
+* [x] Make sure that all team members have write access to the github repository
+* [ ] Create a dedicated environment for you project to keep track of your packages
+* [ ] Create the initial file structure using cookiecutter
+* [ ] Fill out the `make_dataset.py` file such that it downloads whatever data you need and
+* [ ] Add a model file and a training script and get that running
+* [ ] Remember to fill out the `requirements.txt` file with whatever dependencies that you are using
+* [ ] Remember to comply with good coding practices (`pep8`) while doing the project
+* [ ] Do a bit of code typing and remember to document essential parts of your code
+* [ ] Setup version control for your data or part of your data
+* [ ] Construct one or multiple docker files for your code
+* [ ] Build the docker files locally and make sure they work as intended
+* [ ] Write one or multiple configurations files for your experiments
+* [ ] Used Hydra to load the configurations and manage your hyperparameters
+* [ ] When you have something that works somewhat, remember at some point to to some profiling and see if
+      you can optimize your code
+* [ ] Use Weights & Biases to log training progress and other important metrics/artifacts in your code. Additionally,
+      consider running a hyperparameter optimization sweep.
+* [ ] Use Pytorch-lightning (if applicable) to reduce the amount of boilerplate in your code
+
+### Week 2
+
+* [ ] Write unit tests related to the data part of your code
+* [ ] Write unit tests related to model construction and or model training
+* [ ] Calculate the coverage.
+* [ ] Get some continuous integration running on the github repository
+* [ ] Create a data storage in GCP Bucket for you data and preferable link this with your data version control setup
+* [ ] Create a trigger workflow for automatically building your docker images
+* [ ] Get your model training in GCP using either the Engine or Vertex AI
+* [ ] Create a FastAPI application that can do inference using your model
+* [ ] If applicable, consider deploying the model locally using torchserve
+* [ ] Deploy your model in GCP using either Functions or Run as the backend
+
+### Week 3
+
+* [ ] Check how robust your model is towards data drifting
+* [ ] Setup monitoring for the system telemetry of your deployed model
+* [ ] Setup monitoring for the performance of your deployed model
+* [ ] If applicable, play around with distributed data loading
+* [ ] If applicable, play around with distributed model training
+* [ ] Play around with quantization, compilation and pruning for you trained models to increase inference speed
+
+### Additional
+
+* [ ] Revisit your initial project description. Did the project turn out as you wanted?
+* [ ] Make sure all group members have a understanding about all parts of the project
+* [ ] Uploaded all your code to github
+
 ## Group information
 
 ### Question 1
@@ -465,7 +521,9 @@ On the user end, he can clone our code on github, pull our data through dvc on G
 >
 > Answer:
 
-
+During this project we encountered various challenges starting from the implementation of the model based on the choice of the transformer XLMRobertaForSequenceClassification which originally seemed to us the best one for our scope but we then realized that it wasn't performing well from the prediction results. Since the main purpose of this course has been to learn new tools and implement them into our project, we decided to focus more on this part, knowing anyhow that the model could have been further improved. 
+Secondly, the final part of the course, where we had to use the GCP, the main issue we encountered was related to running the virtual machine (VM) in the Compute Engine service. Training our model on it gave us hardly interpretable error messages and therefore we opted for training our model locally, this took us almost 24 hours but at the end we were able to save the model together with its weights and biases into the "deployable_model.pt" file.
+Lastly, always in the GCP we had some issues with the creation of the Cloud function and the deployment of our model, especially with the main.py file to ask a request. At the end we managed to create a predict function that takes as input two sentences and outputs the prediction that could be that either that the two sentences entails each other, or are unrelated or contradict each other. As written above, this predictions are unfortunately not reliable and even with a simple case the outputted prediction may be wrong.
 
 ### Question 27
 
