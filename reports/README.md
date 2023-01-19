@@ -49,7 +49,7 @@ be installed with `pip install click markdown`.
 >
 > Answer:
 
---- question 1 fill here ---
+9
 
 ### Question 2
 > **Enter the study number for each member in the group**
@@ -60,7 +60,7 @@ be installed with `pip install click markdown`.
 >
 > Answer:
 
---- question 2 fill here ---
+s213291, s213290
 
 ### Question 3
 > **What framework did you choose to work with and did it help you complete the project?**
@@ -73,7 +73,11 @@ be installed with `pip install click markdown`.
 >
 > Answer:
 
---- question 3 fill here ---
+We used the third party framework Transformers, in particular the model we decided to use to complete the project was XLMRoberta, which is a model designed to handle multilingual text, therefore suitable for our project which had data of different languages. The variant we chose is called XLMRobertaForSequenceClassification. 
+The model inherits from different submodels, by using the method from_pretrained. In this project we choose to inherit "xlm-roberta-base".
+To tokenize the phrases we used XLMRobertaTokenizer, which is a tokenizer used specifically for XLMRoberta. The library XLMRobertaTokenizer containes still another method called from_pretrained which receives as input the same submodel as before. 
+After having created an instance of XLMRobertaTokenizer, we generate batches of inputs through the method batch_encode_plus.
+
 
 ## Coding environment
 
@@ -92,7 +96,9 @@ be installed with `pip install click markdown`.
 >
 > Answer:
 
---- question 4 fill here ---
+We created a new environment for this specific project, and we would install the dependencies required for every task whenever we needed a particular library or package.
+By the end of the project we run the command in our root folder "pipreqs .", which detected the needed libraries to replicate our project and therefore created a file requirements.txt with the names of the libraries coupled with the specific version used. 
+The process a new team member would have to go through to get an exact copy of our environment would be to create a new environment through conda create -n <name of the environment>, downdload our requirements.txt file and execute in the terminal pip install requirements.txt.
 
 ### Question 5
 
@@ -107,7 +113,12 @@ be installed with `pip install click markdown`.
 > *experiments.*
 > Answer:
 
---- question 5 fill here ---
+We initialized the initial structure using cookiecutter template. Of the created folders, we used only data and src as major subfolders, and in src we used all the folders except visualization.
+In src we have the most of the code and data pipeline: in src/data/make_dataset.py the dataset is downloaded, processed in src/features/build_features.py and afterwards included in the dataset class in src/data/dataset.py. 
+The training is done in src/models/train_model.py, and the model is contained in src/models/model.py. In the same folder there is a predicted_model.py which is used to make a prediction. 
+In config we have the configuration parameters of Hydra. In tests the test of the code. 
+And in src/cloud_function there is the content of the function uploaded on gcp. 
+Finally there are other files for docker like trainer-local.docker and cloudbuild.yaml. 
 
 ### Question 6
 
@@ -118,7 +129,8 @@ be installed with `pip install click markdown`.
 >
 > Answer:
 
---- question 6 fill here ---
+We often checked with flake8 in multiple scripts how pep8 compliant we were, and tried to correct the minor errors it was giving. 
+In larger projects this is important because having a common style between multiple contributors would aid in the homogeneity of the code and therefore how readable it is. 
 
 ## Version control
 
@@ -131,7 +143,9 @@ be installed with `pip install click markdown`.
 >
 > Answer:
 
---- question 7 fill here ---
+We implemented two tests: one for the model, and the other one for the data.
+The data test checked if the dimention of the data was as expected and if it is present. 
+And for the model we checked if the output was as expected in terms of dimention, and if the heredited model was XLMRobertaForSequenceClassification if we gave him a wrong one. 
 
 ### Question 8
 
@@ -146,7 +160,8 @@ be installed with `pip install click markdown`.
 >
 > Answer:
 
---- question 8 fill here ---
+The total code coverage of our project is 62%, which includes all of our source code. Most of our python files in the report however were close to 100%, except for model.py which is very low. This suggests us that the tests are strong enough for most of our code, except for model.py, therefore to be more secure we should add other tests to include that part.
+However tests in general are never perfect, and they provide just a certain degree of safety but never 100% (even if the coverage might be so), therefore it is better to never be completely sure that the code is bug proof. 
 
 ### Question 9
 
@@ -161,7 +176,9 @@ be installed with `pip install click markdown`.
 >
 > Answer:
 
---- question 9 fill here ---
+Since we are just two people, in this project we didn't use as much branches and pull requests as it would have been needed in a bigger group. 
+in such a bigger group branches and pull requests would help a lot for version control because it would allow to multiple people to work on the same project without overlapping each other and therefore merge in one centralized file all the content, which would be the github repository. 
+Everyone would work on their share of the code in a local branch of his PC, and periodically push it to the centralized repository.  
 
 ### Question 10
 
@@ -176,7 +193,9 @@ be installed with `pip install click markdown`.
 >
 > Answer:
 
---- question 10 fill here ---
+DVC helped us greatly in using version control of our data. Since the amount of data was too heavy for github, we wouldn't have had the chance to version control it if it weren't for DVC. Furthermore, since we wanted to upload the model as well, so someone could use it without having to go through the training, DVC helped us upload that too even though it was more then 1GB heavy. 
+In our case we initially used google drive as storage, but afterwards switched to GCP as it provided us with more space. 
+DVC helped us also with all the docker images, as it was very simple to upload the data with a dvc pull from the image itself. 
 
 ### Question 11
 
@@ -211,7 +230,7 @@ be installed with `pip install click markdown`.
 >
 > Answer:
 
---- question 12 fill here ---
+We used hydra to configure the parameters of our project. in config there was default_config.yaml which contained the link of the folders of other parameters, and in these other folders there were further yaml files which contained the specific parameters for the function. The folders were data, model, predict, build_features and train.
 
 ### Question 13
 
@@ -226,7 +245,9 @@ be installed with `pip install click markdown`.
 >
 > Answer:
 
---- question 13 fill here ---
+To reproduce our runs they would need to copy the parameters included in config and use them to run the code.
+By having used config files we were able to separate the code from the single parameters used, therefore improving the reproducibility. 
+An example on how to run one, would be to simply copy our repository and run from the root base python src/models/train_model.py, while having chosen the desired parameters in config/train/train_config.yaml
 
 ### Question 14
 
