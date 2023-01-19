@@ -311,7 +311,16 @@ An example on how to run one, would be to simply copy our repository and run fro
 >
 > Answer:
 
---- question 17 fill here ---
+We used the Cloud storage, the Container registry, the Cloud functions and Monitoring.
+
+- Cloud storage is used to store data in an easily sharable and cheap way and it guarantees that it won't be lost by storing it in multiple locations. In addition it allows accessing the data through an application programming interface (API). 
+
+- Container registry is used as a container for Docker images, but with the advantage that the building process on the Cloud will take less time and large images can be handled better compared to Docker. After creating a "cloud build.yaml" file in our repository, in the Cloud Build page we connected to our Github repository, created a new trigger and after the image was successfully being built and pushed we were able to find it in the Container registry page.
+
+- Cloud functions are used to deploy a model in an easy way thanks to the fact that they are "serverless" and that means that we don't have to take care of the server directly.
+
+- Monitoring is used to setup automatic alerting in order to get a message every time one of our applications are not behaving as expected.
+
 
 ### Question 18
 
@@ -335,7 +344,7 @@ An example on how to run one, would be to simply copy our repository and run fro
 >
 > Answer:
 
---- question 19 fill here ---
+![my_image](figures/bucket.jpeg)
 
 ### Question 20
 
@@ -344,7 +353,7 @@ An example on how to run one, would be to simply copy our repository and run fro
 >
 > Answer:
 
---- question 20 fill here ---
+![my_image](figures/registry.jpeg)
 
 ### Question 21
 
@@ -353,7 +362,7 @@ An example on how to run one, would be to simply copy our repository and run fro
 >
 > Answer:
 
---- question 21 fill here ---
+![my_image](figures/build.jpeg)
 
 ### Question 22
 
@@ -369,7 +378,9 @@ An example on how to run one, would be to simply copy our repository and run fro
 >
 > Answer:
 
---- question 22 fill here ---
+We managed to deploy our model on the cloud. 
+Firstly, in the Cloud storage page, we created one bucket to contain the "deployable_model.py" and since we initially configured DVC on Google Drive we had to change the storage from it to the Cloud Storage. Afterwards, in the Cloud functions page, we created a function that takes as input two sentences and outputs the prediction that could be that either the two sentences entails each other, or are unrelated or contradict each other.
+To invoke the deployed service a user would call curl…..???
 
 ### Question 23
 
@@ -384,7 +395,9 @@ An example on how to run one, would be to simply copy our repository and run fro
 >
 > Answer:
 
---- question 23 fill here ---
+We managed to implement Monitoring on our deployed model by setting up automatic alerting in order to get a message every time our application is not behaving as expected. ---We created a policy...
+
+Monitoring is based on the concept of telemetry and is fundamental for the longevity of an application since it keeps track and collects information and metrics in order to send us an alert such that the model won't perform worse over time due to a lack of generalization, instead it will be retrained based on the recorded changes. 
 
 ### Question 24
 
