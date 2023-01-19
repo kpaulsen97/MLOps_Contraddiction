@@ -211,7 +211,11 @@ DVC helped us also with all the docker images, as it was very simple to upload t
 >
 > Answer:
 
---- question 11 fill here ---
+We made use of CI through unittesting, in particular we automated the tests on the model and data on every push to the repository.
+An example of a workflow is the following: https://github.com/kpaulsen97/MLOps_Contraddiction/actions/runs/3959665773
+In this run we can see how initially it defines when the workflow will be triggered, so on push and pull_requests on the master and main branches. Afterwards it sets up the os, python environment. Finally it autheticates to google cloud through a JSON key of a service account linked to our project on GCP, where the data is stored. And so it installs the requirements, pulls the data, and runs the pytests. In this particular instance linked, we can see that everything went well. 
+Another CI we made use of was the automated creation of docker images uploaded on GCP. So for every push to the repository, it would run cloudbuild.yaml, which would build a docker image through trainer_cloud.dockerfile, and push it on our project in GCP. 
+trainer_cloud.dockerfile is creating an image with a python environment, uses the default service account on GCP, installs dvc to be able to pull the data, and alter copies the required files to run the training and runs docker_run_training.sh as an entrypoint. The sh file will pull the data from dvc and run the scripts to create the data and train the model.
 
 ## Running code and tracking experiments
 
@@ -279,7 +283,8 @@ An example on how to run one, would be to simply copy our repository and run fro
 >
 > Answer:
 
---- question 15 fill here ---
+In our project we developed one image for training the model, as we believe that would have been the most useful image as it would run the most complex code, compared to the others. 
+The docker file which would create an image locally is trainer-local.dockerfile https://github.com/kpaulsen97/MLOps_Contraddiction/blob/main/trainer-local.dockerfile, which creates a python environment, copies the necessary files to run the training, as finally starts the train_model.py, by using it as entrypoint. Afterwards, to run the image, you type in the cmd "docker run trainer:latest" and it will give the the container which will have the trained model inside. 
 
 ### Question 16
 
@@ -411,7 +416,7 @@ Monitoring is based on the concept of telemetry and is fundamental for the longe
 >
 > Answer:
 
---- question 24 fill here ---
+Since we didn't utilize the VM for our project, we paid a very low amount of money, namely 25dkk circa in total, which all were used for the Cloud Storage. 
 
 ## Overall discussion of project
 
