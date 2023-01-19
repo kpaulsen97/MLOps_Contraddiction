@@ -264,7 +264,7 @@ An example on how to run one, would be to simply copy our repository and run fro
 >
 > Answer:
 
---- question 14 fill here ---
+![my_image](figures/wandb.jpeg)
 
 ### Question 15
 
@@ -432,7 +432,7 @@ Monitoring is based on the concept of telemetry and is fundamental for the longe
 >
 > Answer:
 
---- question 25 fill here ---
+![my_image](figures/overview.png)
 
 ### Question 26
 
