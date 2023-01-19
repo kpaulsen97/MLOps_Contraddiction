@@ -270,6 +270,8 @@ An example on how to run one, would be to simply copy our repository and run fro
 
 ![my_image](figures/wandb.jpeg)
 
+From this image we can see four runs: blue, red, green and purple. The first two attempts that we did, the blue one and the red one, results in no output graph on W&B page due to some errors in our train_model.py file related to the incorporation of Wandb in it. After these two attempts we managed to fix these issues and we were able to run the train_model.py file. As can be seen in the image, the green run resulted in partially complete graphs and this was due to the number of batches used to run it, which was around 50 for a total of a couple of minutes. Finally, as can be seen with the purple run, we were able to run the training completely and successfully with 650 batches for around 24 hours. It resulted in four graphs on the W&B page: validation loss and accuracy, number of epochs and train loss. We are able to partially see how the purple run resulted in a slightly smaller validation loss and in a better validation accuracy. In addition, from the graph of the train loss we can see how it increased and decreased in an oscillating trend a couple of times and that is because, in the way we structured our model, the training of the transformer we decided to use (XLMRobertaForSequenceClassification) wasn't as successful as we hoped and therefore the consequent predictions are not reliable with a high degree of certainty. In conclusion, a further study and implementation of another transformer that better fits the data could have been done. 
+
 ### Question 15
 
 > **Docker is an important tool for creating containerized applications. Explain how you used docker in your**
@@ -299,7 +301,8 @@ The docker file which would create an image locally is trainer-local.dockerfile 
 >
 > Answer:
 
---- question 16 fill here ---
+For what concerns the debugging process we mainly used the classic old technique of the print statement, which is a quick and easy way of focusing on the chucks of code where the problem happens and seeing where the code failed. On the other hand, since we know is not the best method for debugging in case of larger codes, we tried to use the VS Code build in debugger, which is very easy to initialize and straight forward to use in this editor. 
+For what concerns the profiling we didn't try to implement it, but it would have been a good idea to try and use on how machine learning code in order to detect bottlenecks which are places in the code that prevent other processes from performing their best.
 
 ## Working in the cloud
 
@@ -340,7 +343,9 @@ We used the Cloud storage, the Container registry, the Cloud functions and Monit
 >
 > Answer:
 
---- question 18 fill here ---
+Among the services offered by GCP we haven't used the Compute Engine, since we trained our model locally and afterwards uploaded the "deployable_model.pt" file in the Cloud Storage service of GCP in order to deploy the model using Cloud Functions.
+
+Compute engine is a very powerful service of GCP. It can be used to create and run virtual machines (VM), that resemble completely separate computers on which we can run processes in the "background" which means that we don't have to depend on this process to be done before doing anything else. This service can be used by creating a new instance in the Compute engine page and being sure to install Python and Pytorch by starting the virtual machine based on specific docker images.
 
 ### Question 19
 
@@ -400,7 +405,7 @@ To invoke the deployed service a user would call curl…..???
 >
 > Answer:
 
-We managed to implement Monitoring on our deployed model by setting up automatic alerting in order to get a message every time our application is not behaving as expected. ---We created a policy...
+We managed to implement Monitoring on our deployed model by setting up automatic alerting in order to get a message every time our application is not behaving as expected. In particular, we created a policy that send us an email every time the log entries of the cloud function exceed 10. 
 
 Monitoring is based on the concept of telemetry and is fundamental for the longevity of an application since it keeps track and collects information and metrics in order to send us an alert such that the model won't perform worse over time due to a lack of generalization, instead it will be retrained based on the recorded changes. 
 
